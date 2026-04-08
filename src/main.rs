@@ -25,7 +25,9 @@ fn main() {
         for line in sys_log.lines(){
 
             if line.contains(&args[2]){
-              
+               if keyword_count < 5 { 
+                println!("{line}");
+            }
             keyword_count +=1;
 
         }
