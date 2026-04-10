@@ -2,6 +2,14 @@ use std::fs;
 use std::env;
 use std::process;
 
+struct LogEntry {
+    timestamp: String,
+    hostname: String,
+    process: String,
+    message: String
+
+}
+
 fn main() {
 
     let args : Vec<String> = env::args().collect();
@@ -26,7 +34,22 @@ fn main() {
 
             if line.contains(&args[2]){
                if keyword_count < 5 { 
-                println!("{line}");
+                //println!("{line}");
+                
+                let log_entry = LogEntry {
+                    timestamp: line.split_whitespace().nth(0).unwrap().to_string(),
+                    hostname: line.split_whitespace().nth(1).unwrap().to_string(),
+                    process: line.split_whitespace().nth(2).unwrap().to_string(),
+                    message: line.split_whitespace().skip(3).collect::<Vec<&str>>().join(" ")
+
+                };
+                println!("_______________________________________________________________________");
+                println!("Timestamp: {}", log_entry.timestamp);
+                println!("Hostname: {}", log_entry.hostname);
+                println!("Process: {}", log_entry.process);
+                println!("Message: {}", log_entry.message);
+                
+                
             }
             keyword_count +=1;
 
